@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:    
+    branches: [main]    
+    types: [opened, synchronize]
 
 jobs:
   a_test_job:
@@ -22,3 +25,8 @@ jobs:
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
+      - name: filter commit messages
+        env:
+          COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
+        if: ${{ contains(fromJson(env.COMMIT_MESSAGES),'#skip') }}
+        run: echo "Result true"

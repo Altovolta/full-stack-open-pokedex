@@ -28,5 +28,5 @@ jobs:
       - name: filter commit messages
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
-        if: ${{ contains(fromJson($COMMIT_MESSAGES),'#skip') }}
+        if: ${{ contains(fromJson(env.COMMIT_MESSAGES),'#skip') }}
         run: echo "Result true"

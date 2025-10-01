@@ -3,6 +3,7 @@ name: Cron Healthcheck
 on:
   schedule:
     - cron: "15-50/5 * * * *"
+  workflow_dispatch:  # Allows manual testing
 
 jobs:
   cron_healthcheck:

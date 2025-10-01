@@ -31,5 +31,4 @@ describe('<App />', () => {
     })
     expect(screen.getByTestId('error')).toBeVisible()
   })
-
 })

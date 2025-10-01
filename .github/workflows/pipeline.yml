@@ -33,6 +33,18 @@ jobs:
       - name: Trigger Deployment
         if: ${{ github.event_name == 'push' }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+      - name: Pipeline error notification for discord
+        uses: rjstone/discord-webhook-notify@v2.2.1
+        if: ${{ !success() }}
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          username: Github Notification
+          severity: error
+          color: '#FF002B'
+          text: Build failed
+          title: commit
+          description: |
+           https://github.com/Altovolta/full-stack-open-pokedex/commit/${{ github.sha }} by ${{ github.actor }} broke the build
 
   tag_release:
     needs: [simple_deployment_pipeline]
@@ -47,3 +59,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
+      - name: New version notification for discord
+        uses: rjstone/discord-webhook-notify@v2.2.1
+        if: ${{ success() && github.event_name == 'push' && !contains(fromJson(env.COMMIT_MESSAGES),'#skip') }}
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          username: Github Notification
+          severity: info
+          color: '#00D100'
+          text: New version of Pokedex deployed
+          description: to render by ${{ github.actor }}
+

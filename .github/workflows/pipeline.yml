@@ -40,7 +40,7 @@ jobs:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           username: Github Notification
           severity: error
-          color: '##FF002B'
+          color: '#FF002B'
           text: Build failed
           title: commit
           description: |

@@ -31,9 +31,4 @@ describe('<App />', () => {
     })
     expect(screen.getByTestId('error')).toBeVisible()
   })
-
-  it('Failing test', async () => {
-    expect(screen.getByTestId('Not existing text here')).toBeVisible()
-  })
-
 })

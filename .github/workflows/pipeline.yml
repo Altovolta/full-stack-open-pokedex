@@ -61,12 +61,12 @@ jobs:
           DEFAULT_BUMP: patch
       - name: New version notification for discord
         uses: rjstone/discord-webhook-notify@v2.2.1
-        if: success()
+        if: success() && !skipped()
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           username: Github Notification
           severity: info
-          color: '#AAFF00'
+          color: '#00D100'
           text: New version of Pokedex deployed
           description: to render by ${{ github.actor }}
 

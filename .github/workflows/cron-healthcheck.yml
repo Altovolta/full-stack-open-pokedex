@@ -12,6 +12,6 @@ jobs:
       - name: Check the deployed service is working
         uses: jtalk/url-health-check-action@v4
         with:
-          url: ${{ secrets.APP_URL }}
+          url: ${{ secrets.APP_URL }}/health
           max-attempts: 5 
           retry-delay: 5s 

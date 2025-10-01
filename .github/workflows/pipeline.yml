@@ -35,7 +35,7 @@ jobs:
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
       - name: Pipeline error notification for discord
         uses: rjstone/discord-webhook-notify@v2.2.1
-        if: failure()
+        if: !success()
         with:
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
           username: Github Notification
